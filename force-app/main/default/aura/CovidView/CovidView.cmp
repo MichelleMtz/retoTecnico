@@ -1,0 +1,27 @@
+<aura:component controller="CovidClass_CC" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId">
+
+<aura:attribute name="columns" type="list" access="public" />
+<aura:attribute name="data" type="list" access="public" />
+<aura:attribute name="sortedBy" type="string" access="public" default="XC_Fecha__c"/>
+<aura:attribute name="sortedDirection" type="string" access="public" default="desc"/>
+<aura:attribute name="isLoading" type="boolean" access="public" default="true"/>
+<aura:handler name='init' value='{!this}' action='{!c.doInit}' />
+
+<aura:if isTrue="{! v.isLoading }">
+        <lightning:spinner alternativeText="Loading"/>
+    </aura:if>
+<div style="height: 300px">
+    <lightning:datatable
+        columns="{! v.columns }"
+        data="{! v.data }"
+        keyField="Id"
+        hideCheckboxColumn="true"
+        resizeColumnDisabled="true"
+        sortedBy="{! v.sortedBy }"
+        sortedDirection="{! v.sortedDirection }"
+        showRowNumberColumn="true"
+        onrowaction="{! c.handleRowAction }"
+        onsort="{! c.updateColumnSorting }"
+        />
+</div>
+</aura:component>	
